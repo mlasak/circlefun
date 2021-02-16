@@ -8,7 +8,7 @@ jobs:
     steps:
       - checkout
       - run:
-          name: Virtual merge
+          name: Virtual merge of '$CHILD_BRANCH' into 'development'
           command: |
             git config --global user.email "community-partner@circleci.com"
             git config --global user.name "CircleCI CPE"
@@ -17,6 +17,7 @@ jobs:
       - run:
           name: Running unit tests
           command: |
+            git --no-pager log -n 1 --pretty=oneline
             npm test
 workflows:
   node-tests:
