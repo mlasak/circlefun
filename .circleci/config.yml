@@ -8,7 +8,8 @@ jobs:
       - image: circleci/node:10.20.1
     steps:
       - checkout
-      - build-tools/merge-with-parent
+      - build-tools/merge-with-parent:
+          parent: master
 workflows:
   node-tests:
     jobs:
