@@ -9,7 +9,7 @@ jobs:
     steps:
       - checkout
       - build-tools/merge-with-parent:
-          parent: master
+          parent: development
 workflows:
   node-tests:
     jobs:
