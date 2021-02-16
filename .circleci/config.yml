@@ -8,13 +8,12 @@ jobs:
     steps:
       - checkout
       - run:
-          name: Virtual merge
+          name: Virtual merge $CIRCLE_BRANCH
           command: |
             git config --global user.email "community-partner@circleci.com"
             git config --global user.name "CircleCI CPE"
             git checkout development
-            git merge --no-edit --no-ff $CHILD_BRANCH
-            echo $CHILD_BRANCH
+            git merge --no-edit --no-ff $CIRCLE_BRANCH
       - run:
           name: Running unit tests
           command: |
