@@ -1,22 +1,25 @@
 version: 2.1
 orbs:
   node: circleci/node@3.0.0
-  build-tools: circleci/build-tools@2.7.1
 jobs:
-  integration-test_merge-parent:
+  tests-after-simulated-merge:
     docker:
       - image: circleci/node:10.20.1
     steps:
       - checkout
       - run:
-          name: Set up testing git repository
+          name: Virtual merge
           command: |
             git config --global user.email "community-partner@circleci.com"
             git config --global user.name "CircleCI CPE"
-      - build-tools/merge-with-parent:
-          parent: development
+            git checkout development
+            git merge --no-ff $CHILD_BRANCH
+      - run:
+          name: Running unit tests
+          command: |
+            npm test
 workflows:
   node-tests:
     jobs:
-      - integration-test_merge-parent
+      - tests-after-simulated-merge
       - node/test
