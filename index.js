@@ -3,7 +3,7 @@ function fun2 () {
 }
 
 function fun1 () {
-    return fun2();
+    return 42;
 }
 
 module.exports = {
