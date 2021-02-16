@@ -1,5 +1,5 @@
 function fun2 () {
-    return 42;
+    return "42";
 }
 
 function fun1 () {
