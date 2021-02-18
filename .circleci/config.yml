@@ -1,7 +1,26 @@
 version: 2.1
 orbs:
   node: circleci/node@3.0.0
+jobs:
+  tests-after-simulated-merge:
+    docker:
+      - image: circleci/node:10.20.1
+    steps:
+      - checkout
+      - run:
+          name: Virtual merge $CIRCLE_BRANCH
+          command: |
+            git config --global user.email "community-partner@circleci.com"
+            git config --global user.name "CircleCI CPE"
+            git checkout development
+            git merge --no-edit --no-ff $CIRCLE_BRANCH
+      - run:
+          name: Running unit tests
+          command: |
+            git --no-pager log -n 1 --pretty=oneline
+            npm test
 workflows:
   node-tests:
     jobs:
+      - tests-after-simulated-merge
       - node/test
